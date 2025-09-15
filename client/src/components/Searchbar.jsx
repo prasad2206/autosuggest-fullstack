@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SuggestionsList from "./SuggestionsList";
+import FALLBACK from "../data"; // fallback data import
 
 /**
  * SearchBar Component
@@ -11,32 +12,26 @@ function SearchBar() {
   const [activeIndex, setActiveIndex] = useState(-1); // for keyboard navigation
   const [selected, setSelected] = useState(false); // to handle "No matches found" correctly
 
-  // Dummy static data (later API se replace karenge)
-  const sampleData = [
-    "React",
-    "Redux",
-    "JavaScript",
-    "TypeScript",
-    "Node.js",
-    "Express",
-    "MongoDB",
-    "SQL Server",
-    "C# .NET",
-    "ASP.NET Core"
-  ];
-
   // Filter suggestions based on input
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const value = e.target.value;
     setQuery(value);
     setActiveIndex(-1);
     setSelected(false); // reset selected when typing
 
     if (value.length > 0) {
-      const filtered = sampleData.filter((item) =>
-        item.toLowerCase().includes(value.toLowerCase())
-      );
-      setSuggestions(filtered);
+      try {
+        const res = await fetch(`/api/suggestions?q=${value}`);
+        if (!res.ok) throw new Error("Network response was not ok");
+        const data = await res.json();
+        setSuggestions(data);
+      } catch (err) {
+        // API fail ho toh fallback data use karo
+        const filtered = FALLBACK.filter((item) =>
+          item.toLowerCase().includes(value.toLowerCase())
+        );
+        setSuggestions(filtered);
+      }
     } else {
       setSuggestions([]);
     }
