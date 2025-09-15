@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "autosuggest_api.Controllers.SuggestionsController",
+    "Method": "Get",
+    "RelativePath": "api/Suggestions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
