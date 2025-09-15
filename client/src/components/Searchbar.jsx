@@ -26,21 +26,26 @@ function SearchBar() {
   ];
 
   // Filter suggestions based on input
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
-    setActiveIndex(-1);
-    setSelected(false); // reset selected when typing
+  const handleChange = async (e) => {
+  const value = e.target.value;
+  setQuery(value);
+  setActiveIndex(-1);
+  setSelected(false); // reset selected when typing
 
-    if (value.length > 0) {
-      const filtered = sampleData.filter((item) =>
-        item.toLowerCase().includes(value.toLowerCase())
-      );
-      setSuggestions(filtered);
-    } else {
-      setSuggestions([]);
+  if (value.length > 0) {
+    try {
+      const res = await fetch(`/api/suggestions?q=${value}`);
+      if (!res.ok) throw new Error("Network response was not ok");
+      const data = await res.json();
+      setSuggestions(data);
+    } catch (err) {
+      console.error("Error fetching suggestions:", err);
+      setSuggestions([]); // fallback
     }
-  };
+  } else {
+    setSuggestions([]);
+  }
+};
 
   // Keyboard navigation (↑ ↓ Enter)
   const handleKeyDown = (e) => {
