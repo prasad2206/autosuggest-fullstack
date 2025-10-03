@@ -118,7 +118,7 @@ It demonstrates my ability to work on both **frontend and backend**, integrate w
 ## 👨‍💻 Author
 
 **Prasad Deshpande**  
-- 🌐 [LinkedIn](https://linkedin.com/in/your-profile)  
-- 📧 your.email@example.com  
-- 📂 [GitHub](https://github.com/your-username)  
+- 🌐 [LinkedIn](www.linkedin.com/in/prasad-deshpande-5a69aa1b9)  
+- 📧 prasaddeshpande39@gmail.com 
+- 📂 [GitHub](https://github.com/prasad2206)  
 
